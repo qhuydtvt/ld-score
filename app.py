@@ -2,7 +2,7 @@ from flask import *
 from flask_restful import *
 from flask_restful.reqparse import *
 from addict import *
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from models.score import Score
 from mlab import *
@@ -25,7 +25,10 @@ class ScoreRes(Resource):
     def get(self):
         return {
             'success': 1,
-            'data': list2json(Score.objects())
+            'data': [{
+                'score': score.score,
+                'name': score.name
+            } for score in Score.objects()]
         }
 
     def post(self):
@@ -35,7 +38,10 @@ class ScoreRes(Resource):
         return {
             'success': 1,
             'message': 'New score added successfully',
-            'data': item2json(new_score)
+            'data': {
+                'score': new_score.score,
+                'name': new_score.name
+            }
         }
 
     def delete(self):
@@ -58,7 +64,10 @@ class TopScoreRes(Resource):
             return {
                 'success': 1,
                 'message': 'Top score retrived successfully',
-                'data': item2json(highest_score)
+                'data': {
+                    'score': highest_score.score,
+                    'name': highest_score.name
+                }
             }
 
 
