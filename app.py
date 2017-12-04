@@ -28,7 +28,7 @@ class ScoreRes(Resource):
             'data': [{
                 'score': score.score,
                 'name': score.name
-            } for score in Score.objects()]
+            } for score in Score.objects().limit(10)]
         }
 
     def post(self):
