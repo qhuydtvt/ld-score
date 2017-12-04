@@ -15,6 +15,7 @@ options.datetime_representation = DatetimeRepresentation.ISO8601
 def mlab_connect():
     mongoengine.connect(db_name, host=host, port=port, username=user_name, password=password)
 
+
 def list2json(l):
     import json
     return [json.loads(item.to_json(json_options=options)) for item in l]

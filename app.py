@@ -28,7 +28,15 @@ class ScoreRes(Resource):
         new_score.save()
         return {
             'success': 1,
+            'message': 'New score added successfully',
             'data': item2json(new_score)
+        }
+
+    def delete(self):
+        Score.drop_collection()
+        return {
+            'success': 1,
+            'message': 'Congrats, all data erased'
         }
 
 
@@ -43,6 +51,7 @@ class TopScoreRes(Resource):
         else:
             return {
                 'success': 1,
+                'message': 'Top score retrive successfully',
                 'data': item2json(highest_score)
             }
 
