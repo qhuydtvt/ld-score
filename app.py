@@ -15,6 +15,12 @@ parser = RequestParser()
 parser.add_argument('name', type=str, location='form')
 parser.add_argument('score', type=int, location='form')
 
+
+@app.route('/')
+def index():
+    return render_template("index.html")
+
+
 class ScoreRes(Resource):
     def get(self):
         return {
