@@ -3,12 +3,14 @@ from flask_restful import *
 from flask_restful.reqparse import *
 from addict import *
 from datetime import datetime, timedelta
+from flask_cors import CORS
 
 from models.score import Score
 from mlab import *
 
 mlab_connect()
 app = Flask(__name__)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 api = Api(app)
 
 parser = RequestParser()

@@ -1,6 +1,7 @@
 # Web Framework
 flask
 flask-restful
+flask-cors
 
 # Database
 mongoengine
