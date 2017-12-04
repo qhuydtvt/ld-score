@@ -23,12 +23,28 @@ def index():
 
 class ScoreRes(Resource):
     def get(self):
+        today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+
+        pipeline = [
+            {
+                '$match': {
+                    'added_time': {'$gte': today - timedelta(days=1)}
+                }
+            },
+            {
+                '$limit': 10
+            },
+            {
+                '$sort': {'score': -1}
+            }
+        ]
+        top_ten_today = Score.objects.aggregate(*pipeline)
         return {
             'success': 1,
             'data': [{
-                'score': score.score,
-                'name': score.name
-            } for score in Score.objects().limit(10)]
+                'score': score['score'],
+                'name': score['name']
+            } for score in top_ten_today]
         }
 
     def post(self):
