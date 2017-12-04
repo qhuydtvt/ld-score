@@ -51,7 +51,7 @@ class TopScoreRes(Resource):
         else:
             return {
                 'success': 1,
-                'message': 'Top score retrive successfully',
+                'message': 'Top score retrived successfully',
                 'data': item2json(highest_score)
             }
 
