@@ -1,0 +1,14 @@
+# Web Framework
+flask
+flask-restful
+
+# Database
+mongoengine
+
+# For data parsing
+addict
+
+# For deployment
+eventlet
+gunicorn
+mongoengine
