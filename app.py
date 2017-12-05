@@ -34,10 +34,10 @@ class ScoreRes(Resource):
                 }
             },
             {
-                '$limit': 10
+                       '$sort': {'score': -1}
             },
             {
-                '$sort': {'score': -1}
+                '$limit': 10
             }
         ]
         top_ten_today = Score.objects.aggregate(*pipeline)
