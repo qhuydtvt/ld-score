@@ -41,19 +41,19 @@ class ScoreRes(Resource):
             }
         ]
 
-        pipeline_topten_alltime = [
-            {
-               '$sort': {'score': -1}
-            },
+        pipeline_ten_lastrecord = [
             {
                 '$limit': 10
+            },
+            {
+               '$sort': {'score': -1}
             }
         ]
 
         top_ten = Score.objects.aggregate(*pipeline_topten_today)
 
         if len([score for score in top_ten]) < 10:
-            top_ten = Score.objects.aggregate(*pipeline_topten_alltime)
+            top_ten = Score.objects.aggregate(*pipeline_ten_lastrecord)
 
         return {
             'success': 1,
