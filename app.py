@@ -27,7 +27,7 @@ class ScoreRes(Resource):
     def get(self):
         today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
 
-        pipeline = [
+        pipeline_topten_today = [
             {
                 '$match': {
                     'added_time': {'$gte': today - timedelta(days=1)}
@@ -40,13 +40,27 @@ class ScoreRes(Resource):
                 '$limit': 10
             }
         ]
-        top_ten_today = Score.objects.aggregate(*pipeline)
+
+        pipeline_topten_alltime = [
+            {
+               '$sort': {'score': -1}
+            },
+            {
+                '$limit': 10
+            }
+        ]
+
+        top_ten = Score.objects.aggregate(*pipeline_topten_today)
+
+        if len([score for score in top_ten]) < 10:
+            top_ten = Score.objects.aggregate(*pipeline_topten_alltime)
+
         return {
             'success': 1,
             'data': [{
                 'score': score['score'],
                 'name': score['name']
-            } for score in top_ten_today]
+            } for score in top_ten]
         }
 
     def post(self):
