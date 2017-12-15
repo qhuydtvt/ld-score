@@ -34,7 +34,7 @@ class ScoreRes(Resource):
                 }
             },
             {
-                       '$sort': {'score': -1}
+                '$sort': {'score': -1}
             },
             {
                 '$limit': 10
@@ -42,6 +42,9 @@ class ScoreRes(Resource):
         ]
 
         pipeline_ten_lastrecord = [
+            {
+                '$sort': {'added_time': -1}
+            },
             {
                 '$limit': 10
             },
