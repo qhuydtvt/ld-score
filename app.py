@@ -44,6 +44,9 @@ class ScoreRes(Resource):
         pipeline_ten_lastrecord = [
             {
                 '$limit': 10
+            },
+            {
+                '$sort': {'score': -1}
             }
         ]
 
